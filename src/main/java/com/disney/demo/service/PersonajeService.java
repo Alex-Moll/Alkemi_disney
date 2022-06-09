@@ -12,7 +12,7 @@ public class PersonajeService {
     @Autowired
     private PersonajeRepository personajeRepository;
     
-    public void guardar(Personaje personaje){
+    public void save(Personaje personaje){
         try{
             personajeRepository.save(personaje);
         }catch (Exception ex){
@@ -20,7 +20,7 @@ public class PersonajeService {
         }
     }
     
-    public Personaje buscar(String id){
+    public Personaje find(String id){
         try{
             return personajeRepository.findById(id).orElse(null);
         }catch (Exception ex){
@@ -30,7 +30,7 @@ public class PersonajeService {
         
     }
     
-    public List<Personaje> listar(){       
+    public List<Personaje> findAll(){       
         try{
             return personajeRepository.findAll();
         }catch (Exception ex){
@@ -39,7 +39,7 @@ public class PersonajeService {
         }
     }
     
-    public void eliminar(String id){
+    public void delete(String id){
         try{
             personajeRepository.deleteById(id);
         }catch (Exception ex){

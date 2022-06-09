@@ -12,11 +12,11 @@ public class PeliculaService {
     @Autowired 
     private PeliculaRepository peliculaRepository;
     
-    public void guardar(Pelicula pelicula){
+    public void save(Pelicula pelicula){
         peliculaRepository.save(pelicula);
     }
 
-    public Pelicula buscar(String id){       
+    public Pelicula find(String id){       
         try{
             return peliculaRepository.findById(id).orElse(null);
         }catch (Exception ex){
@@ -25,7 +25,7 @@ public class PeliculaService {
         }
     }
     
-    public List<Pelicula> listar(){       
+    public List<Pelicula> finddAll(){       
         try{
             return peliculaRepository.findAll();
         }catch (Exception ex){
@@ -34,7 +34,7 @@ public class PeliculaService {
         }
     }
     
-    public void eliminar(String id){
+    public void delete(String id){
         try{
             peliculaRepository.deleteById(id);
         }catch (Exception ex){

@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.disney.demo.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -35,7 +34,13 @@ public class Personaje implements Serializable{
     
     private String historia;
     
-    private List<Pelicula> personajes;
+    @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
+    private List<Pelicula> peliculas = new ArrayList<>();
+    
+    //esto sig. que el campo pelicula_id de la tabla hace referencia al id de pelicula
+    // y que no puede ser nulo(false) 
+    @Column(name = "pelicula_id", nullable = false)
+    private String peliculaId;
     
         
 }

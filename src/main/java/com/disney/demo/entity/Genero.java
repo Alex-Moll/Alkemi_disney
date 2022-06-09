@@ -2,9 +2,11 @@ package com.disney.demo.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
@@ -23,5 +25,6 @@ public class Genero implements Serializable{
     
     private String imagen;
     
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<Pelicula> peliculas;
 }
