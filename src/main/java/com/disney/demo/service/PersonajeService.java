@@ -1,51 +1,16 @@
 package com.disney.demo.service;
 
-import com.disney.demo.entity.Personaje;
-import com.disney.demo.repository.PersonajeRepository;
+import com.disney.demo.dto.PersonajeDto;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
-public class PersonajeService {
+public interface PersonajeService {
     
-    @Autowired
-    private PersonajeRepository personajeRepository;
+    PersonajeDto saveDto(PersonajeDto dto);
     
-    public void save(Personaje personaje){
-        try{
-            personajeRepository.save(personaje);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
+    PersonajeDto get(PersonajeDto dto);
     
-    public Personaje find(String id){
-        try{
-            return personajeRepository.findById(id).orElse(null);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-        
-    }
+    List<PersonajeDto> getAll();
     
-    public List<Personaje> findAll(){       
-        try{
-            return personajeRepository.findAll();
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-    
-    public void delete(String id){
-        try{
-            personajeRepository.deleteById(id);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        
-    }
-    
+    void delete(PersonajeDto dto);
+       
 }

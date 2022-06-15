@@ -13,10 +13,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
 @Table( name = "personajes")
+@SQLDelete(sql = "UPDATE Personaje SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Personaje implements Serializable{
     
     @Id
@@ -28,6 +33,8 @@ public class Personaje implements Serializable{
     
     private String nombre;
     
+    @Column(name = "fecha_creacion")
+    @DateTimeFormat(pattern = "yyyy/mm/dd") // formato y patron de la fecha
     private LocalDate fechaNac;
     
     private double peso;
@@ -42,5 +49,6 @@ public class Personaje implements Serializable{
     @Column(name = "pelicula_id", nullable = false)
     private String peliculaId;
     
+    private boolean deleted = Boolean.FALSE; 
         
 }

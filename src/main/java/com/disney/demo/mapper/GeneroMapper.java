@@ -38,7 +38,7 @@ public class GeneroMapper {
         
     /**
      * llega una lista de (entity), creo una lista de Dto, luego
-     * cargo en esa lista los entity qie recorro con el for y devuelvo
+     * cargo en esa lista los entity que recorro con el for y devuelvo
      * una lista de Dto
      * @param listAll
      * @return 
@@ -46,8 +46,11 @@ public class GeneroMapper {
     public List<GeneroDto> listAllGenero(List<Genero> listAll){
         List<GeneroDto> listDto = new ArrayList<>();
         for (Genero genero : listAll) {
+            // obtengo un genero, luego con el this voy y lo convierto en dto
+            // para cargarlo a la lista de dtos
             listDto.add(this.genero2GeneroDto(genero));
         }
         return listDto;
     }
+    
 }

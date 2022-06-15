@@ -10,10 +10,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Data
 @Entity
 @Table( name = "generos")
+@SQLDelete(sql = "UPDATE Genero SET deleted = true WHERE id = ?")
+@Where(clause = "deleted = false")
 public class Genero implements Serializable{
     
     @Id
@@ -25,6 +29,9 @@ public class Genero implements Serializable{
     
     private String imagen;
     
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "genero", cascade = CascadeType.PERSIST)
     private List<Pelicula> peliculas;
+    
+    private boolean deleted = Boolean.FALSE;
+    
 }

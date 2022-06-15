@@ -9,12 +9,6 @@ public interface GeneroService {
     
     List<GeneroDto> getAll();
     
-//    void save(Genero genero);
-//            
-//    Genero find(String id);
-//    
     void delete(GeneroDto dto);
-    
-//    
-
+     
 }

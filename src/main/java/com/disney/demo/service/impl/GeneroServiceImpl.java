@@ -34,43 +34,13 @@ public class GeneroServiceImpl implements GeneroService {
         List<GeneroDto> result = generoMapper.listAllGenero(genero);
         return result;
     }
-
-    public void save(Genero genero) {
-        generoRepository.save(genero);
-    }
-
-    public Genero find(String id) {
-        try{
-            return generoRepository.findById(id).orElse(null);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-        
-    }
-
-    public List<Genero> findAll() {       
-        try{
-            return generoRepository.findAll();
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-            return null;
-        }
-    }
-
-    public void delete(String id) {
-        try{
-            generoRepository.deleteById(id);
-        }catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-    }
-
+    
     @Override
     public void delete(GeneroDto dto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Genero genero = new Genero();
+        genero = generoMapper.generoDto2Genero(dto);
+        genero.isDeleted();
+//        generoRepository.delete(genero);  
     }
 
-    
-    
 }

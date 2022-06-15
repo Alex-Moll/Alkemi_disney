@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.disney.demo.service.GeneroService;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -20,16 +21,16 @@ public class GeneroController {
     @Autowired
     private GeneroService generoService;
     
-    @GetMapping("/listAll")
-    public ResponseEntity<List<GeneroDto>> getAll(){
-        List<GeneroDto> listDto = generoService.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(listDto);
-    }
-    
     @PostMapping("/save")
     public ResponseEntity<GeneroDto> save(@RequestBody GeneroDto dto){
         GeneroDto generoGuardado = generoService.saveDto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(generoGuardado);      
+    }
+    
+    @GetMapping("/getAll")
+    public ResponseEntity<List<GeneroDto>> getAll(){
+        List<GeneroDto> listDto = generoService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(listDto);
     }
     
     @PutMapping("/update")
@@ -38,7 +39,7 @@ public class GeneroController {
         return ResponseEntity.status(HttpStatus.OK).body(generoGuardado); 
     }
     
-    @PutMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestBody GeneroDto dto){
         generoService.delete(dto);
         return new ResponseEntity<>("xxxxx",HttpStatus.NO_CONTENT); 
