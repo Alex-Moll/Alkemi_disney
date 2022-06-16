@@ -39,7 +39,7 @@ public class Pelicula implements Serializable{
     private String titulo;
     
     @Column(name = "fecha_creacion")
-    @DateTimeFormat(pattern = "yyyy/mm/dd") // formato y patron de la fecha
+    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
     private LocalDate fechaCreacion;
      
     private Integer calificacion;

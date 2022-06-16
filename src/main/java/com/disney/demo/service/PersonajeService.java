@@ -7,10 +7,10 @@ public interface PersonajeService {
     
     PersonajeDto saveDto(PersonajeDto dto);
     
-    PersonajeDto get(PersonajeDto dto);
+    PersonajeDto find(String id);
     
-    List<PersonajeDto> getAll();
+    List<PersonajeDto> findAll();
     
-    void delete(PersonajeDto dto);
+    void delete(String id);
        
 }

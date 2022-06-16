@@ -30,20 +30,21 @@ public class PersonajeServiceImpl implements PersonajeService{
     }
     
     @Override
-    public List<PersonajeDto> getAll() {
+    public List<PersonajeDto> findAll() {
         List<Personaje> personajes = personajeRepository.findAll();
         List<PersonajeDto> dtos = personajeMapper.getAll(personajes);
         return dtos;
     }
 
     @Override
-    public PersonajeDto get(PersonajeDto dto) {
+    public PersonajeDto find(String id) {
+        PersonajeDto dto = personajeService.find(id);
         return dto;
     }
 
     @Override
-    public void delete(PersonajeDto dto) {
-        Personaje personaje = personajeMapper.personajeDto2Personaje(dto);
-        personajeRepository.delete(personaje);
+    public void delete(String id) {
+        this.personajeRepository.deleteById(id);
     }
+    
 }

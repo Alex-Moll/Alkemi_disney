@@ -34,7 +34,7 @@ public class Personaje implements Serializable{
     private String nombre;
     
     @Column(name = "fecha_creacion")
-    @DateTimeFormat(pattern = "yyyy/mm/dd") // formato y patron de la fecha
+    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
     private LocalDate fechaNac;
     
     private double peso;

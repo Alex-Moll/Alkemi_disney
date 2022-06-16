@@ -7,10 +7,10 @@ public interface PeliculaService {
     
     PeliculaDto saveDto(PeliculaDto dto);
     
-    PeliculaDto get(PeliculaDto dto);
+    PeliculaDto find(String id);
     
-    List<PeliculaDto> getAll();
+    List<PeliculaDto> findAll();
     
-    void delete(PeliculaDto dto);
+    void delete(String id);
     
 }

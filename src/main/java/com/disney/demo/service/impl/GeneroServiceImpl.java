@@ -19,9 +19,9 @@ public class GeneroServiceImpl implements GeneroService {
     private GeneroRepository generoRepository;
     
     public GeneroDto saveDto(GeneroDto dto){  
-        // convierto un dto en entity
+        // convierto un dto en entity creada
         Genero genero = generoMapper.generoDto2Genero(dto);
-        //guardo la entity con generoSave obteniendo el id
+        //guardo la entity en generoSave obteniendo el id
         Genero generoSave = generoRepository.save(genero);
         // luego convierto esa entidadSave en dto y retorno eso
         GeneroDto result = generoMapper.genero2GeneroDto(generoSave);
@@ -29,18 +29,24 @@ public class GeneroServiceImpl implements GeneroService {
     }
     
     @Override
-    public List<GeneroDto> getAll() {
+    public GeneroDto find(String id) {
+        Genero genero = generoRepository.findById(id).orElse(null);
+        GeneroDto dto = generoMapper.genero2GeneroDto(genero);
+        return dto;
+    }
+    
+    @Override
+    public List<GeneroDto> findAll() {
         List<Genero> genero = generoRepository.findAll();
-        List<GeneroDto> result = generoMapper.listAllGenero(genero);
+        List<GeneroDto> result = generoMapper.listAll2GeneroDto(genero);
         return result;
     }
     
     @Override
-    public void delete(GeneroDto dto) {
-        Genero genero = new Genero();
-        genero = generoMapper.generoDto2Genero(dto);
-        genero.isDeleted();
-//        generoRepository.delete(genero);  
+    public void delete(String id) {
+        this.generoRepository.deleteById(id);
     }
+
+    
 
 }

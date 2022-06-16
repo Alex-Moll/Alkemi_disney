@@ -43,7 +43,7 @@ public class GeneroMapper {
      * @param listAll
      * @return 
      */
-    public List<GeneroDto> listAllGenero(List<Genero> listAll){
+    public List<GeneroDto> listAll2GeneroDto(List<Genero> listAll){
         List<GeneroDto> listDto = new ArrayList<>();
         for (Genero genero : listAll) {
             // obtengo un genero, luego con el this voy y lo convierto en dto

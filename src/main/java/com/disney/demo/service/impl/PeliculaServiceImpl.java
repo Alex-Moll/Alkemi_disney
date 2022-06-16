@@ -15,11 +15,10 @@ public class PeliculaServiceImpl implements PeliculaService{
 
     @Autowired
     private PeliculaRepository peliculaRepository;
+    
     @Autowired
     private PeliculaMapper peliculaMapper;
-    @Autowired
-    private PeliculaServiceImpl peliculaServiceImpl;
-    
+       
     @Override
     public PeliculaDto saveDto(PeliculaDto dto) {
         Pelicula pelicula = new Pelicula();
@@ -30,21 +29,23 @@ public class PeliculaServiceImpl implements PeliculaService{
     }
 
     @Override
-    public PeliculaDto get(PeliculaDto dto) {
+    public PeliculaDto find(String id) {
+        Pelicula pelicula = peliculaRepository.findById(id).orElse(null);
+        PeliculaDto dto = peliculaMapper.Pelicula2PeliculaDto(pelicula);
         return dto;
     }
 
     @Override
-    public List<PeliculaDto> getAll() {
+    public List<PeliculaDto> findAll() {
         List<Pelicula> peliculas = peliculaRepository.findAll();
         List<PeliculaDto> dtos = peliculaMapper.getAll(peliculas);
         return dtos;
     }
 
     @Override
-    public void delete(PeliculaDto dto) {
-        Pelicula pelicula = peliculaMapper.PeliculaDto2Pelicula(dto);
-        peliculaRepository.delete(pelicula);
+    public void delete(String id) {
+        this.peliculaRepository.deleteById(id);
     }
 
+   
 }
