@@ -3,7 +3,6 @@ package com.disney.demo.mapper;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.dto.CharacterDto;
 import com.disney.demo.entity.Movie;
-import com.disney.demo.entity.Character;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
