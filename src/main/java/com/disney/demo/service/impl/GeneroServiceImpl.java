@@ -2,10 +2,12 @@ package com.disney.demo.service.impl;
 
 import com.disney.demo.dto.GeneroDto;
 import com.disney.demo.entity.Genero;
+import com.disney.demo.exception.ParamNotFound;
 import com.disney.demo.mapper.GeneroMapper;
 import com.disney.demo.repository.GeneroRepository;
 import com.disney.demo.service.GeneroService;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,15 +32,19 @@ public class GeneroServiceImpl implements GeneroService {
     
     @Override
     public GeneroDto find(String id) {
-        Genero genero = generoRepository.findById(id).orElse(null);
-        GeneroDto dto = generoMapper.genero2GeneroDto(genero);
+//        Genero genero = generoRepository.findById(id).orElse(null);
+        Optional<Genero> genero = generoRepository.findById(id);
+        if(!genero.isPresent()){
+            throw new ParamNotFound("no existe ese genero");
+        }
+        GeneroDto dto = generoMapper.genero2GeneroDto(genero.get());
         return dto;
     }
     
     @Override
     public List<GeneroDto> findAll() {
-        List<Genero> genero = generoRepository.findAll();
-        List<GeneroDto> result = generoMapper.listAll2GeneroDto(genero);
+        List<Genero> generos = generoRepository.findAll();
+        List<GeneroDto> result = generoMapper.listAll2GeneroDto(generos);
         return result;
     }
     
@@ -46,7 +52,6 @@ public class GeneroServiceImpl implements GeneroService {
     public void delete(String id) {
         this.generoRepository.deleteById(id);
     }
-
-    
+   
 
 }

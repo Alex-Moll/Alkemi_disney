@@ -19,35 +19,33 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
-@Table( name = "personajes")
+@Table( name = "characters")
 @SQLDelete(sql = "UPDATE Personaje SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Personaje implements Serializable{
+public class Character implements Serializable{
     
     @Id
     @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
+//    @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
     
     private String imagen;
     
     private String nombre;
     
-    @Column(name = "fecha_creacion")
-    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
-    private LocalDate fechaNac;
+//    @Column(name = "fecha_nacimeinto")
+//    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
+    private int edad;
     
     private double peso;
     
     private String historia;
     
-    @ManyToMany(mappedBy = "personajes", cascade = CascadeType.ALL)
-    private List<Pelicula> peliculas = new ArrayList<>();
+    @ManyToMany(mappedBy = "personajes", cascade = CascadeType.PERSIST)
+    private List<Movie> peliculas = new ArrayList<>();
     
-    //esto sig. que el campo pelicula_id de la tabla hace referencia al id de pelicula
-    // y que no puede ser nulo(false) 
-    @Column(name = "pelicula_id", nullable = false)
-    private String peliculaId;
+//    @Column(name = "pelicula_id")
+//    private String peliculaId;
     
     private boolean deleted = Boolean.FALSE; 
         

@@ -1,7 +1,6 @@
 package com.disney.demo.controller;
 
 import com.disney.demo.dto.GeneroDto;
-import com.disney.demo.entity.Genero;
 import com.disney.demo.mapper.GeneroMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.disney.demo.service.GeneroService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,28 +27,42 @@ public class GeneroController {
     @Autowired
     private GeneroMapper generoMapper;
     
-    @PostMapping("/save")
-    public ResponseEntity<GeneroDto> save(@RequestBody GeneroDto dto){
+    @PostMapping()
+    public ResponseEntity<GeneroDto> save(@Valid @RequestBody GeneroDto dto){
+        System.out.println("\nentro a generos/save");
         GeneroDto dtoGuardado = generoService.saveDto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(dtoGuardado);      
     }
     
-    @GetMapping("/findAll")
+    @GetMapping("/{id}")
+    public ResponseEntity<GeneroDto> find(@PathVariable String id){
+        System.out.println("\nentro a generos/find/id");
+        GeneroDto dto = generoService.find(id);
+        
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+    
+    @GetMapping()
     public ResponseEntity<List<GeneroDto>> findAll(){
+        System.out.println("\nentro a generos/findAll");
         List<GeneroDto> listDto = generoService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(listDto);
     }
     
-    @PutMapping("/update")
-    public ResponseEntity<GeneroDto> update(@RequestBody GeneroDto dto){
-        GeneroDto generoGuardado = generoService.saveDto(dto);
-        return ResponseEntity.status(HttpStatus.OK).body(generoGuardado); 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+        System.out.println("\nentro a generos/delete/id");
+        this.generoService.delete(id);
+        System.out.println("llego a borrar");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
     
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id){
-        this.generoService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    @PutMapping("/{id}")
+    public ResponseEntity<GeneroDto> update(@PathVariable String id){
+        System.out.println("\nentro a generos/update/id");
+        GeneroDto dto = generoService.find(id);
+        GeneroDto generoGuardado = generoService.saveDto(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(generoGuardado); 
     }
    
 }

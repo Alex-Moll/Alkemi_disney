@@ -8,5 +8,6 @@ public class GeneroDto {
     private String id;
     private String nombre;
     private String imagen;
+    private boolean deleted;
     
 }

@@ -17,6 +17,7 @@ public class GeneroMapper {
      */
     public Genero generoDto2Genero(GeneroDto dto){
         Genero genero = new Genero();
+        genero.setId(dto.getId());
         genero.setNombre(dto.getNombre());
         genero.setImagen(dto.getImagen());
         return genero;

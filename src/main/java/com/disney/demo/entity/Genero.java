@@ -29,8 +29,8 @@ public class Genero implements Serializable{
     
     private String imagen;
     
-    @OneToMany(mappedBy = "genero", cascade = CascadeType.PERSIST)
-    private List<Pelicula> peliculas;
+//    @OneToMany(mappedBy = "genero", cascade = CascadeType.ALL)
+//    private List<Movie> peliculas;
     
     private boolean deleted = Boolean.FALSE;
     
