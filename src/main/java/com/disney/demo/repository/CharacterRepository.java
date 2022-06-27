@@ -8,10 +8,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CharacterRepository extends JpaRepository<Character, String>, JpaSpecificationExecutor<Character>{
-    
-//    public List<Personaje> findByNombre();
-    @Override
-    List<Character> findAll(Specification<Character> spec );
+public interface CharacterRepository extends JpaRepository<Character, Long>, JpaSpecificationExecutor<Character>{
 
+    public List<Character> findAll(Specification<Character> specific);
+
+//    public List<Character> findAll(Specification<java.lang.Character> byFilters);
+
+    
 }

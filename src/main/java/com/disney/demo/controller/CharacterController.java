@@ -1,7 +1,6 @@
 package com.disney.demo.controller;
 
 import com.disney.demo.dto.CharacterDto;
-import com.disney.demo.dto.MovieDto;
 import com.disney.demo.mapper.CharacterMapper;
 import java.util.List;
 import javax.validation.Valid;
@@ -36,31 +35,32 @@ public class CharacterController {
     } 
     
     @GetMapping("/{id}")
-    public ResponseEntity<CharacterDto> find(@PathVariable("id") String id){
+    public ResponseEntity<CharacterDto> find(@PathVariable("id") long id){
         System.out.println("\nentro personajes/find");
         CharacterDto dto = characterService.find(id);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
     
-    @GetMapping()
+    @GetMapping("/findAll")
     public ResponseEntity<List<CharacterDto>> findAll(){
         System.out.println("\nentro personajes/findAll");
         List<CharacterDto> dtos = characterService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
     
-//    @GetMapping()
-//    public ResponseEntity<List<CharacterDto>> getDetailsByFilters(
-//                                @RequestParam (required = false) String name,
-//                                @RequestParam (required = false) String date,
-//                                @RequestParam (required = false) List<String> movieId){
-//        List<CharacterDto> dtos = characterService.getByFilters(name, date, movieId);
-//        return ResponseEntity.ok(dtos);
-//    } 
+    @GetMapping()
+    public ResponseEntity<List<CharacterDto>> getDetailsByFilters(
+                                @RequestParam (required = false) String name,
+                                @RequestParam (required = false) String date,
+                                @RequestParam (required = false) List<Long> movies,
+                                @RequestParam (required = false, defaultValue = "ASC") String order){
+        List<CharacterDto> dtos = characterService.getByFilters(name, date, movies, order);
+        return ResponseEntity.ok(dtos);
+    } 
     
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+    public ResponseEntity<Void> delete(@PathVariable("id") long id){
         System.out.println("\nentro personajes/delete");
         this.characterService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

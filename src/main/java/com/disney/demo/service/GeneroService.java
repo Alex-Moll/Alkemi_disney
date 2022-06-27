@@ -7,10 +7,10 @@ public interface GeneroService {
 
     GeneroDto saveDto(GeneroDto dto);
     
-    GeneroDto find(String id);
+    GeneroDto find(long id);
     
     List<GeneroDto> findAll();
     
-    void delete(String id);
+    void delete(long id);
      
 }

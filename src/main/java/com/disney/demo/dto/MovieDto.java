@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Range;
 @Data
 public class MovieDto {
     
-    private String id;
+    private long id;
     private String imagen;
     @NotNull
     private String titulo;

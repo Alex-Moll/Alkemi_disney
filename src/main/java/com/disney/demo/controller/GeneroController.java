@@ -35,7 +35,7 @@ public class GeneroController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<GeneroDto> find(@PathVariable String id){
+    public ResponseEntity<GeneroDto> find(@Valid @PathVariable long id){
         System.out.println("\nentro a generos/find/id");
         GeneroDto dto = generoService.find(id);
         
@@ -50,7 +50,7 @@ public class GeneroController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+    public ResponseEntity<Void> delete(@PathVariable("id") long id){
         System.out.println("\nentro a generos/delete/id");
         this.generoService.delete(id);
         System.out.println("llego a borrar");
@@ -58,7 +58,7 @@ public class GeneroController {
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<GeneroDto> update(@PathVariable String id){
+    public ResponseEntity<GeneroDto> update(@PathVariable long id){
         System.out.println("\nentro a generos/update/id");
         GeneroDto dto = generoService.find(id);
         GeneroDto generoGuardado = generoService.saveDto(dto);

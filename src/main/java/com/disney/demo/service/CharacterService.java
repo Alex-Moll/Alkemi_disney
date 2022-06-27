@@ -7,12 +7,14 @@ public interface CharacterService {
     
     CharacterDto saveDto(CharacterDto dto);
     
-    CharacterDto find(String id);
+    CharacterDto find(long id);
     
     List<CharacterDto> findAll();
     
-    List<CharacterDto> getByFilters(String name, String date, List<String> movieId);
+    List<CharacterDto> getByFilters(String name, String date, List<Long> movies, String order);
     
-    void delete(String id);
+    CharacterDto getDetailsById(Long id);
+    
+    void delete(long id);
        
 }

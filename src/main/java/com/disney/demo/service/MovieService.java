@@ -7,10 +7,10 @@ public interface MovieService {
     
     MovieDto saveDto(MovieDto dto);
     
-    MovieDto find(String id);
+    MovieDto find(long id);
     
     List<MovieDto> findAll();
     
-    void delete(String id);
+    void delete(long id);
     
 }

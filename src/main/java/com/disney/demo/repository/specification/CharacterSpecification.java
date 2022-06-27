@@ -16,13 +16,14 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 @Component
-public class CharacterSpecificacion {
+public class CharacterSpecification {
 
     public Specification<Character> getByFilters(CharacterFiltersDto filtersDto) {
         return (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
 
+            // en predicates vamos agregando los campos del filtro
             if (StringUtils.hasLength(filtersDto.getName())) {
                 predicates.add(criteriaBuilder.like(
                         criteriaBuilder.lower(root.get("denominacion")),
@@ -36,22 +37,22 @@ public class CharacterSpecificacion {
 
             }
 
-            if (!CollectionUtils.isEmpty(filtersDto.getMovieId())) {
+            if (!CollectionUtils.isEmpty(filtersDto.getMovies())) {
                 Join<Character, Movie> join = root.join("characters", JoinType.INNER);
                 Expression<String> moviesId = join.get("id");
-                predicates.add(moviesId.in(filtersDto.getMovieId()));
+                predicates.add(moviesId.in(filtersDto.getMovies()));
             }
 
             //remove duplicates
             query.distinct(true);
 
             //order resolver
-//            String orderByField = "denominacion";
-//            query.orderBy(filtersDto.isASC()) ?
-//                            criteriaBuilder.asc(root.get(orderByField)) :
-//                            criteriaBuilder.desc(root.get(orderByField)) );
+            String orderByField = "denominacion";
+            query.orderBy(filtersDto.isASC() ?
+                            criteriaBuilder.asc(root.get(orderByField)) :
+                            criteriaBuilder.desc(root.get(orderByField)) );
         
-        return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
 
         };
     }

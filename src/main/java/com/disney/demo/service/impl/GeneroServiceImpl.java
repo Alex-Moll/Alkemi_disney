@@ -31,7 +31,7 @@ public class GeneroServiceImpl implements GeneroService {
     }
     
     @Override
-    public GeneroDto find(String id) {
+    public GeneroDto find(long id) {
 //        Genero genero = generoRepository.findById(id).orElse(null);
         Optional<Genero> genero = generoRepository.findById(id);
         if(!genero.isPresent()){
@@ -49,7 +49,7 @@ public class GeneroServiceImpl implements GeneroService {
     }
     
     @Override
-    public void delete(String id) {
+    public void delete(long id) {
         this.generoRepository.deleteById(id);
     }
    

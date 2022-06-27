@@ -18,24 +18,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.disney.demo.repository.MovieRepository;
 import com.disney.demo.service.MovieService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("movies")
 public class MovieController {
     
     @Autowired
-    private MovieMapper peliculaMapper;
-    
+    private MovieMapper peliculaMapper;   
     @Autowired
     private CharacterMapper personajeMapper;
-    
     @Autowired
-    private MovieService peliculaService;
-    
+    private MovieService peliculaService;    
     @Autowired
-    private MovieRepository peliculaRepository;
-    
+    private MovieRepository peliculaRepository;   
     @Autowired
     private GeneroServiceImpl generoServiceImpl; 
     
@@ -50,7 +45,7 @@ public class MovieController {
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<MovieDto> find(@PathVariable("id") String id){
+    public ResponseEntity<MovieDto> find(@PathVariable("id") long id){
         System.out.println("\nentro peliculas/find");
         MovieDto dto = peliculaService.find(id);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
@@ -64,7 +59,7 @@ public class MovieController {
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") String id){
+    public ResponseEntity<Void> delete(@PathVariable("id") long id){
         System.out.println("\nentro peliculas/dalete");
         this.peliculaService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

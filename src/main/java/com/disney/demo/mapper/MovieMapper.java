@@ -23,13 +23,14 @@ public class MovieMapper {
     public Movie MovieDto2Movie(MovieDto dto) {
 
         Movie movie = new Movie();
+        
         movie.setImagen(dto.getImagen());
         movie.setTitulo(dto.getTitulo());
         LocalDate date = LocalDate.parse(dto.getFechaCreacion(), formatter);
         movie.setFechaCreacion(date);
         movie.setCalificacion(dto.getCalificacion());
         movie.setGenero(generoMapper.generoDto2Genero(dto.getGenero()));
-        movie.setPersonajes(characterMapper.getAllEntity(dto.getPersonajes()));
+        movie.setPersonajes(characterMapper.listCharacterDto2ListCharacter(dto.getPersonajes()));
         return movie;
         
     }
@@ -37,13 +38,15 @@ public class MovieMapper {
     public MovieDto Movie2MovieDto(Movie movie,  boolean loadCharacter) {
 
         MovieDto dto = new MovieDto();
-        dto.setCalificacion(movie.getCalificacion());
-        String date = movie.getFechaCreacion().format(formatter);
-        dto.setFechaCreacion(date);
+        
         dto.setId(movie.getId());
         dto.setImagen(movie.getImagen());
-        dto.setPersonajes(characterMapper.listCharacter2ListCharacterDto(movie.getPersonajes(), false));
         dto.setTitulo(movie.getTitulo());
+        String date = movie.getFechaCreacion().format(formatter);
+        dto.setFechaCreacion(date);
+        dto.setCalificacion(movie.getCalificacion());
+        dto.setGenero(generoMapper.genero2GeneroDto(movie.getGenero()));
+        dto.setPersonajes(characterMapper.listCharacter2ListCharacterDto(movie.getPersonajes(), false));
         if(loadCharacter){
             List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(movie.getPersonajes(), false);
             dto.setPersonajes(dtos);

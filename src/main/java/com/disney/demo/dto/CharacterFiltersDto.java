@@ -10,13 +10,22 @@ public class CharacterFiltersDto {
 
     private String name;
     private String date;
-    private List<String> movieId;
+    private List<Long> movies;
+    private String order;
     
-    public CharacterFiltersDto(String name, String date, List<String> movieId){
+    public CharacterFiltersDto(String name, String date, List<Long> movies, String order){
         this.name = name;
         this.date = date;
-        this.movieId = movieId;
+        this.movies = movies;
+        this.order = order;
+    }
+    
+    public boolean isASC(){
+        return this.order.compareToIgnoreCase("ASC") == 0;
     }
 
+    public boolean isDESC(){
+        return this.order.compareToIgnoreCase("DESC") == 0;
+    }
     
 }

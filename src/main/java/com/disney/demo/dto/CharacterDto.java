@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class CharacterDto {
     
-    private String id;
+    private long id;
     private String imagen;
     @NotNull
     private String nombre;
