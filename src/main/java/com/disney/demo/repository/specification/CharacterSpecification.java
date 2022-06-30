@@ -29,14 +29,27 @@ public class CharacterSpecification {
                         criteriaBuilder.lower(root.get("denominacion")),
                         "%" + filtersDto.getName().toLowerCase() + "%"));
             }
-
-            if (StringUtils.hasLength(filtersDto.getDate())) {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                LocalDate date = LocalDate.parse(filtersDto.getDate(), formatter);
-                predicates.add(criteriaBuilder.equal(root.<LocalDate>get("fechaCreacion"), date));
-
+            
+            if (filtersDto.getAge() != null) {
+                predicates.add(criteriaBuilder.equal(
+                        root.get("age"), filtersDto.getAge()));
             }
+            
+            // if para filtro de tipo double
+//            if (filtersDto.getWeight() != null) {
+//                predicates.add(criteriaBuilder.equal(
+//                        root.get("weight"), filtersDto.getWeight()));
+//            }
 
+            // if para filtro de tipo Date
+//            if (StringUtils.hasLength(filtersDto.getDate())) {
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                LocalDate date = LocalDate.parse(filtersDto.getDate(), formatter);
+//                predicates.add(criteriaBuilder.equal(root.<LocalDate>get("fechaCreacion"), date));
+//
+//            }
+
+            // if para list - collections
             if (!CollectionUtils.isEmpty(filtersDto.getMovies())) {
                 Join<Character, Movie> join = root.join("characters", JoinType.INNER);
                 Expression<String> moviesId = join.get("id");

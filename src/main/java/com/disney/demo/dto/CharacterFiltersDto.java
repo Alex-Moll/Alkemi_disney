@@ -9,13 +9,13 @@ import lombok.Setter;
 public class CharacterFiltersDto {
 
     private String name;
-    private String date;
+    private Integer age;
     private List<Long> movies;
     private String order;
     
-    public CharacterFiltersDto(String name, String date, List<Long> movies, String order){
+    public CharacterFiltersDto(String name, Integer age, List<Long> movies, String order){
         this.name = name;
-        this.date = date;
+        this.age = age;
         this.movies = movies;
         this.order = order;
     }

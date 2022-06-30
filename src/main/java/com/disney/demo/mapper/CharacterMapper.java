@@ -6,6 +6,7 @@ import com.disney.demo.entity.Character;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -60,6 +61,19 @@ public class CharacterMapper {
             characters.add(this.characterDto2Character(character));
         }
         return characters;
+    }
+    
+    
+
+    public CharacterDto optional2CharacterDto(Optional<Character> character, boolean loadMovie) {
+        CharacterDto dto = new CharacterDto();
+        dto.setImagen(character.get().getImagen());
+        dto.setNombre(character.get().getNombre());
+        dto.setEdad(character.get().getEdad());
+        if(loadMovie){
+            dto.setPeliculas(movieMapper.listMovie2ListMovieDto(character.get().getPeliculas(), false));
+        }
+        return dto;
     }
         
 }

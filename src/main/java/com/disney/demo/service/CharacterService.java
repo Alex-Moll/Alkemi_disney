@@ -11,7 +11,7 @@ public interface CharacterService {
     
     List<CharacterDto> findAll();
     
-    List<CharacterDto> getByFilters(String name, String date, List<Long> movies, String order);
+    List<CharacterDto> getByFilters(String name, Integer age, List<Long> movies, String order);
     
     CharacterDto getDetailsById(Long id);
     
