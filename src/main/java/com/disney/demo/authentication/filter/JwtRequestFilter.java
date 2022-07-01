@@ -27,26 +27,35 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private AuthenticationManager authenticationManager;
     
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException{
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) 
+            throws IOException, ServletException {
+        
         final String authorizationHeader = request.getHeader("Authorization");
         
         String username = null;
         String jwt = null;
+        
+        //aqui nos indica si el header de postman viene nulo o no
+        // y luego al "Bearer" le saca los 7 primeros caract y subtrae el username
         
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             jwt = authorizationHeader.substring(7);
             username = jwtUtils.extractUsername(jwt);
         }
         
+        //Aqui pregunta si username != null y si el contexto de SpringSecurity == null
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             
+            //crea un userDetails y le setea en el met loadUser.... la entity UserEntity
             UserDetails userDetails = this.userDetailsCustomService.loadUserByUsername(username);
             
             if(jwtUtils.validateToken(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authReq = 
                         new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
-                Authentication auth = (Authentication) authenticationManager.authenticate(authReq);
-                SecurityContextHolder.getContext().setAuthentication((org.springframework.security.core.Authentication) auth);
+                
+//                Authentication auth = (Authentication) authenticationManager.authenticate(authReq);
+                
+                SecurityContextHolder.getContext().setAuthentication(authReq);
             }
         }
         chain.doFilter(request, response);

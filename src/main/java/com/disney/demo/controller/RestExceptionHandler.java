@@ -2,6 +2,7 @@ package com.disney.demo.controller;
 
 import com.disney.demo.dto.ApiErrorDto;
 import com.disney.demo.exception.ParamNotFound;
+import com.disney.demo.exception.UserAlreadyExistAuthenticationException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +24,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ParamNotFound.class})
     protected ResponseEntity<Object> handleParamNotFound(RuntimeException ex, WebRequest request){
         ApiErrorDto errorDto = new ApiErrorDto(
-                                            HttpStatus.BAD_REQUEST,
-                                            ex.getMessage(),
-                                            Arrays.asList("Param Not Found"));
+                        HttpStatus.BAD_REQUEST,
+                        ex.getMessage(),
+                        Arrays.asList("Param Not Found"));
         return handleExceptionInternal(ex, errorDto, new HttpHeaders(), HttpStatus.BAD_REQUEST, request );
     }
     
@@ -54,5 +55,15 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request){
         String bodyOfResponse = "this should be aplication specific";
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+    
+    @ExceptionHandler(value = {UserAlreadyExistAuthenticationException.class})
+    public ResponseEntity<Object> handleUserAlreadyExist(RuntimeException ex, WebRequest request){
+        ApiErrorDto errorDto = new ApiErrorDto(
+                        HttpStatus.BAD_REQUEST,
+                        ex.getMessage(),
+                        Arrays.asList("User Already Exist"));
+        return handleExceptionInternal(ex, errorDto, new HttpHeaders(), HttpStatus.BAD_REQUEST, request );
+    
     }
 }

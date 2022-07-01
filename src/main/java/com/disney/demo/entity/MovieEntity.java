@@ -29,7 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table( name = "movies")
 @SQLDelete(sql = "UPDATE Pelicula SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Movie implements Serializable{
+public class MovieEntity implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -50,7 +50,7 @@ public class Movie implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER) 
     @JoinColumn(name = "genero_Id", referencedColumnName="id")
     @NotNull
-    private Genero genero;
+    private GenderEntity genero;
     
     // en el ManyToMany el fetch es por defecto LAZY
     @ManyToMany(cascade = { CascadeType.PERSIST, 
@@ -60,11 +60,11 @@ public class Movie implements Serializable{
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn( name = "character_id"), 
             uniqueConstraints = {@UniqueConstraint(columnNames = {"movie_id","character_id"})})
-    private List<Character> personajes = new ArrayList<>();
+    private List<CharacterEntity> personajes = new ArrayList<>();
               
     private boolean deleted = Boolean.FALSE;
 
-    public Movie() {
+    public MovieEntity() {
         
     }
     

@@ -4,7 +4,8 @@ import com.disney.demo.authentication.dto.UserDto;
 import com.disney.demo.service.EmailService;
 import com.disney.demo.authentication.entity.UserEntity;
 import com.disney.demo.authentication.repository.UserRepository;
-import com.disney.demo.exception.ParamNotFound;
+import com.disney.demo.exception.ErrorEnum;
+import com.disney.demo.exception.UserAlreadyExistAuthenticationException;
 import java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -32,7 +33,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         //si el user es nulo, lanza una exception sino crea un 
         //User nuevo con los get
         if(userEntity == null){
-            throw new UsernameNotFoundException("Username o Password not found");
+            throw new UsernameNotFoundException(ErrorEnum.USERORPASSWORDNOTFOUND.getMessage());
         }
         
         return new User(userEntity.getUsername(), userEntity.getPassword(), Collections.emptyList());
@@ -42,7 +43,7 @@ public class UserDetailsCustomService implements UserDetailsService {
         
         UserEntity user = this.userRepository.findByUsername(userDto.getUsername());
         if(user != null){
-            throw new UsernameNotFoundException("Username Not Found ");
+            throw new UserAlreadyExistAuthenticationException(ErrorEnum.USERALREADYEXIST.getMessage());
         }
         
         UserEntity userEntity = new UserEntity();

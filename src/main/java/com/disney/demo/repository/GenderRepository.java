@@ -1,11 +1,11 @@
 package com.disney.demo.repository;
 
-import com.disney.demo.entity.Genero;
+import com.disney.demo.entity.GenderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GeneroRepository extends JpaRepository<Genero, Long>{
+public interface GenderRepository extends JpaRepository<GenderEntity, Long>{
     
     
 }

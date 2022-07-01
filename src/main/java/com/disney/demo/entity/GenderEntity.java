@@ -15,7 +15,7 @@ import org.hibernate.annotations.Where;
 @Table( name = "generos")
 @SQLDelete(sql = "UPDATE Genero SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Genero implements Serializable{
+public class GenderEntity implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

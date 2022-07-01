@@ -3,7 +3,7 @@ package com.disney.demo.controller;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.mapper.MovieMapper;
 import com.disney.demo.mapper.CharacterMapper;
-import com.disney.demo.service.impl.GeneroServiceImpl;
+import com.disney.demo.service.impl.GenderServiceImpl;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class MovieController {
     @Autowired
     private MovieRepository peliculaRepository;   
     @Autowired
-    private GeneroServiceImpl generoServiceImpl; 
+    private GenderServiceImpl generoServiceImpl; 
     
     @PostMapping()
     public ResponseEntity<MovieDto> save(@Valid @RequestBody MovieDto dto){

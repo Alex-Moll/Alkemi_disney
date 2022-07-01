@@ -2,7 +2,7 @@ package com.disney.demo.service.impl;
 
 import com.disney.demo.dto.CharacterDto;
 import com.disney.demo.dto.CharacterFiltersDto;
-import com.disney.demo.entity.Character;
+import com.disney.demo.entity.CharacterEntity;
 import com.disney.demo.exception.ParamNotFound;
 import com.disney.demo.mapper.CharacterMapper;
 import com.disney.demo.repository.CharacterRepository;
@@ -29,8 +29,8 @@ public class CharacterServiceImpl implements CharacterService{
     
     @Transactional
     public CharacterDto saveDto(CharacterDto dto){
-        Character character = characterMapper.characterDto2Character(dto);
-        Character characterGuardado = characterRepository.save(character);
+        CharacterEntity character = characterMapper.characterDto2Character(dto);
+        CharacterEntity characterGuardado = characterRepository.save(character);
         dto = characterMapper.character2CharacterDto(characterGuardado, false);
         return dto;
     }
@@ -38,7 +38,7 @@ public class CharacterServiceImpl implements CharacterService{
     @Transactional
     @Override
     public List<CharacterDto> findAll() {
-        List<Character> characters = characterRepository.findAll();
+        List<CharacterEntity> characters = characterRepository.findAll();
         List<CharacterDto> dtos = characterMapper.listCharacter2ListCharacterDto(characters, false);
         return dtos;
     }
@@ -55,33 +55,17 @@ public class CharacterServiceImpl implements CharacterService{
     public List<CharacterDto> getByFilters(String name, Integer age, List<Long> movies, String order) {
     
         CharacterFiltersDto filterDto = new CharacterFiltersDto(name, age, movies, order);
-        
-        List<Character> characters = this.characterRepository.findAll(this.characterSpecification.getByFilters(filterDto));
-        
+        List<CharacterEntity> characters = this.characterRepository.findAll(this.characterSpecification.getByFilters(filterDto));
         List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(characters, true);
         
         return dtos;
         
     }
         
-//    @Override
-//    public List<CharacterBasicDTO> getByFilters(String name, Integer age, Double weight,
-//                                        List<Long> movieList, String order) {
-//        
-//         CharacterFiltersDTO filterDTO = new CharacterFiltersDTO(name, age, weight, movieList, order);
-//        
-//        List<CharacterEntity> characterList= this.characterRepository.findAll(this.characterSpecification.getByFilters(filterDTO));
-//        
-//        List<CharacterBasicDTO> characterBasicDTOList = this.characterMapper.characterEntityList2BasicDTOList(characterList);
-//               
-//        return characterBasicDTOList;
-//        
-//    }
-    
     @Transactional
     @Override
     public CharacterDto getDetailsById(Long id) {
-        Optional<Character> character = characterRepository.findById(id);
+        Optional<CharacterEntity> character = characterRepository.findById(id);
         if(!character.isPresent()){
             throw new ParamNotFound ("No exist the Character by Id");
         }

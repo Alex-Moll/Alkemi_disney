@@ -1,7 +1,7 @@
 package com.disney.demo.repository.specification;
 
 import com.disney.demo.dto.CharacterFiltersDto;
-import com.disney.demo.entity.Movie;
+import com.disney.demo.entity.MovieEntity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,11 +14,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import com.disney.demo.entity.CharacterEntity;
 
 @Component
 public class CharacterSpecification {
 
-    public Specification<Character> getByFilters(CharacterFiltersDto filtersDto) {
+    public Specification<CharacterEntity> getByFilters(CharacterFiltersDto filtersDto) {
         return (root, query, criteriaBuilder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
@@ -51,7 +52,7 @@ public class CharacterSpecification {
 
             // if para list - collections
             if (!CollectionUtils.isEmpty(filtersDto.getMovies())) {
-                Join<Character, Movie> join = root.join("characters", JoinType.INNER);
+                Join<CharacterEntity, MovieEntity> join = root.join("characters", JoinType.INNER);
                 Expression<String> moviesId = join.get("id");
                 predicates.add(moviesId.in(filtersDto.getMovies()));
             }

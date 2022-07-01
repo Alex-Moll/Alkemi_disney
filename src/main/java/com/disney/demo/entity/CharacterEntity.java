@@ -19,7 +19,7 @@ import org.hibernate.annotations.Where;
 @Table( name = "characters")
 @SQLDelete(sql = "UPDATE Personaje SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
-public class Character implements Serializable{
+public class CharacterEntity implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -38,7 +38,7 @@ public class Character implements Serializable{
     private String historia;
     
     @ManyToMany(mappedBy = "personajes", cascade = CascadeType.PERSIST)
-    private List<Movie> peliculas = new ArrayList<>();
+    private List<MovieEntity> peliculas = new ArrayList<>();
     
 //    @Column(name = "pelicula_id")
 //    private String peliculaId;

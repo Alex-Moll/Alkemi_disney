@@ -5,6 +5,7 @@ import com.disney.demo.authentication.dto.AuthenticationResponseDto;
 import com.disney.demo.authentication.dto.UserDto;
 import com.disney.demo.authentication.service.JwtUtils;
 import com.disney.demo.authentication.service.UserDetailsCustomService;
+import com.disney.demo.exception.ErrorEnum;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ public class UserAuthController {
                         new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             userDetails = (UserDetails) auth.getPrincipal();
         }catch (BadCredentialsException bce){
-            throw new Exception("Incorrect username or password" + bce);
+            throw new Exception(ErrorEnum.USERORPASSWORDNOTFOUND.getMessage() + bce);
         }
         
         final String jwt = jwtUtils.generatedToken(userDetails);

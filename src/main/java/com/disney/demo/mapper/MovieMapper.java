@@ -2,7 +2,7 @@ package com.disney.demo.mapper;
 
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.dto.CharacterDto;
-import com.disney.demo.entity.Movie;
+import com.disney.demo.entity.MovieEntity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -16,13 +16,13 @@ public class MovieMapper {
     @Autowired
     private CharacterMapper characterMapper;
     @Autowired
-    private GeneroMapper generoMapper;
+    private GenderMapper generoMapper;
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     
-    public Movie MovieDto2Movie(MovieDto dto) {
+    public MovieEntity MovieDto2Movie(MovieDto dto) {
 
-        Movie movie = new Movie();
+        MovieEntity movie = new MovieEntity();
         
         movie.setImagen(dto.getImagen());
         movie.setTitulo(dto.getTitulo());
@@ -35,7 +35,7 @@ public class MovieMapper {
         
     }
     
-    public MovieDto Movie2MovieDto(Movie movie,  boolean loadCharacter) {
+    public MovieDto Movie2MovieDto(MovieEntity movie,  boolean loadCharacter) {
 
         MovieDto dto = new MovieDto();
         
@@ -55,9 +55,9 @@ public class MovieMapper {
         
     }
 
-    public List<MovieDto> listMovie2ListMovieDto(List<Movie> movies, boolean loadCharacter) {
+    public List<MovieDto> listMovie2ListMovieDto(List<MovieEntity> movies, boolean loadCharacter) {
         List<MovieDto> dtos = new ArrayList<>();
-        for (Movie movie : movies) {
+        for (MovieEntity movie : movies) {
             dtos.add(this.Movie2MovieDto(movie, loadCharacter));
         }
         return dtos;

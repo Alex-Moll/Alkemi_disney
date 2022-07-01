@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "3cc19555-9ce0-4741-accc-70e4d992c11d",
+		"name": "postman_disney",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20508331"
+	},
+	"item": [
+		{
+			"name": "generos",
+			"item": [
+				{
+					"name": "generos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/generos"
+					},
+					"response": []
+				},
+				{
+					"name": "generos_All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/generos"
+					},
+					"response": []
+				},
+				{
+					"name": "generos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/generos?id=13a9a422-531f-4618-86c8-fac355a6785a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"generos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "13a9a422-531f-4618-86c8-fac355a6785a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generos",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/generos?id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"generos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "generos",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/generos?id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"generos"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "personajes",
+			"item": [
+				{
+					"name": "characters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"imagen\": \"cars.jpg\",\r\n        \"nombre\": \"CARS\",\r\n        \"fechaNac\": \"2010/07/15\",\r\n        \"peso\": 50.0,\r\n        \"historia\": \"Autitos\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/characters"
+					},
+					"response": []
+				},
+				{
+					"name": "characters_All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/characters/findAll"
+					},
+					"response": []
+				},
+				{
+					"name": "characters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/characters"
+					},
+					"response": []
+				},
+				{
+					"name": "characters_Filters",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "id",
+								"value": "10,11,13,14",
+								"type": "text"
+							},
+							{
+								"key": "titulo",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "order",
+								"value": "ASC",
+								"type": "text"
+							},
+							{
+								"key": "movies",
+								"value": "9, 12",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/characters?id=10,11,13,14&order=ASC&movies=9,12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "10,11,13,14"
+								},
+								{
+									"key": "titulo",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "movies",
+									"value": "9,12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "peliculas",
+			"item": [
+				{
+					"name": "movies",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"imagen\": \"carsito.jpg\",\r\n    \"titulo\": \"Cars, The Film\",\r\n    \"fechaCreacion\": \"1985/12/07\",\r\n    \"calificacion\": 3,\r\n    \"personajes\":[{\r\n        \"id\": \"113713fb-926d-44a5-9655-6c49918d80a3\",\r\n        \"imagen\": \"motito.jpg\",\r\n        \"nombre\": \"MOTON\",\r\n        \"fechaNac\": \"2011/09/25\",\r\n        \"peso\": 50.0,\r\n        \"historia\": \"Autitos-1\",\r\n        \"peliculas\": [],\r\n        \"deleted\": false\r\n    },\r\n    {\r\n        \"id\": \"6da6e9af-8184-4448-a2b5-7fabe4f34bd8\",\r\n        \"imagen\": \"auito.jpg\",\r\n        \"nombre\": \"auton\",\r\n        \"fechaNac\": \"2011/01/12\",\r\n        \"peso\": 105.0,\r\n        \"historia\": \"Autitos-1-1\",\r\n        \"peliculas\": [],\r\n        \"deleted\": false\r\n    },\r\n    {\r\n        \"id\": \"e6d00f78-2973-4af9-809a-61b14ec41100\",\r\n        \"imagen\": \"rastrojerito.jpg\",\r\n        \"nombre\": \"RASTROJ\",\r\n        \"fechaNac\": \"2010/09/25\",\r\n        \"peso\": 110.0,\r\n        \"historia\": \"Autitos-1\",\r\n        \"peliculas\": [],\r\n        \"deleted\": false\r\n    }],\r\n    \"genero\":{\r\n        \"id\": \"55474bd0-7300-4b73-be4c-2edd0133f75d\",\r\n        \"nombre\": \"suspenso\",\r\n        \"imagen\": \"imgsuspenso.jpg\",\r\n        \"deleted\": false\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/movies"
+					},
+					"response": []
+				},
+				{
+					"name": "movies_All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/movies"
+					},
+					"response": []
+				},
+				{
+					"name": "movies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/movies/?id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

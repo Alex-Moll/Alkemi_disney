@@ -14,7 +14,7 @@ public class MovieDto {
     @NotNull
     private String titulo;
     private String fechaCreacion;
-    private GeneroDto genero;
+    private GenderDto genero;
     @Range(min=1, max=5)
     private Integer calificacion;
     private List<CharacterDto> personajes = new ArrayList<>();

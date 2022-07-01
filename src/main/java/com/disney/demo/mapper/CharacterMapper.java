@@ -2,7 +2,7 @@ package com.disney.demo.mapper;
 
 import com.disney.demo.dto.CharacterDto;
 import com.disney.demo.dto.MovieDto;
-import com.disney.demo.entity.Character;
+import com.disney.demo.entity.CharacterEntity;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,8 @@ public class CharacterMapper {
     
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     
-    public Character characterDto2Character(CharacterDto dto){
-        Character character = new Character();
+    public CharacterEntity characterDto2Character(CharacterDto dto){
+        CharacterEntity character = new CharacterEntity();
         character.setId(dto.getId());
         character.setEdad(dto.getEdad());
         character.setHistoria(dto.getHistoria());
@@ -31,7 +31,7 @@ public class CharacterMapper {
         return character;
     }
     
-    public CharacterDto character2CharacterDto(Character character, boolean loadMovie){
+    public CharacterDto character2CharacterDto(CharacterEntity character, boolean loadMovie){
         CharacterDto dto = new CharacterDto();
         dto.setId(character.getId());
         dto.setImagen(character.getImagen());
@@ -47,16 +47,16 @@ public class CharacterMapper {
         return dto;
     }
     
-    public List<CharacterDto> listCharacter2ListCharacterDto(List<Character> characters, boolean loadMovies){
+    public List<CharacterDto> listCharacter2ListCharacterDto(List<CharacterEntity> characters, boolean loadMovies){
         List<CharacterDto> dtos = new ArrayList<>();
-        for (Character character : characters) {
+        for (CharacterEntity character : characters) {
             dtos.add(this.character2CharacterDto(character, false));
         }
         return dtos;
     }
     
-    public List<Character> listCharacterDto2ListCharacter(List<CharacterDto> charactersDto){
-        List<Character> characters = new ArrayList<>();
+    public List<CharacterEntity> listCharacterDto2ListCharacter(List<CharacterDto> charactersDto){
+        List<CharacterEntity> characters = new ArrayList<>();
         for (CharacterDto character : charactersDto) {
             characters.add(this.characterDto2Character(character));
         }
@@ -65,7 +65,7 @@ public class CharacterMapper {
     
     
 
-    public CharacterDto optional2CharacterDto(Optional<Character> character, boolean loadMovie) {
+    public CharacterDto optional2CharacterDto(Optional<CharacterEntity> character, boolean loadMovie) {
         CharacterDto dto = new CharacterDto();
         dto.setImagen(character.get().getImagen());
         dto.setNombre(character.get().getNombre());
