@@ -3,6 +3,7 @@ package com.disney.demo.authentication.filter;
 import com.disney.demo.authentication.service.JwtUtils;
 import com.disney.demo.authentication.service.UserDetailsCustomService;
 import java.io.IOException;
+import java.util.Collections;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -30,14 +31,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) 
             throws IOException, ServletException {
         
+        //llega por parametro un requesrt y obtiene el valor del header pasado en el postman
         final String authorizationHeader = request.getHeader("Authorization");
         
         String username = null;
         String jwt = null;
         
         //aqui nos indica si el header de postman viene nulo o no
-        // y luego al "Bearer" le saca los 7 primeros caract y subtrae el username
-        
+        // y luego al "Bearer" le saca los 7 primeros caract y substrae el username
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
             jwt = authorizationHeader.substring(7);
             username = jwtUtils.extractUsername(jwt);
@@ -46,15 +47,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         //Aqui pregunta si username != null y si el contexto de SpringSecurity == null
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             
-            //crea un userDetails y le setea en el met loadUser.... la entity UserEntity
+            //crea un userDetails y le setea en el metodo loadUserBy... la entity UserEntity
             UserDetails userDetails = this.userDetailsCustomService.loadUserByUsername(username);
             
             if(jwtUtils.validateToken(jwt, userDetails)){
                 UsernamePasswordAuthenticationToken authReq = 
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
+                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), Collections.EMPTY_LIST);
                 
 //                Authentication auth = (Authentication) authenticationManager.authenticate(authReq);
                 
+                // set auth in context
                 SecurityContextHolder.getContext().setAuthentication(authReq);
             }
         }

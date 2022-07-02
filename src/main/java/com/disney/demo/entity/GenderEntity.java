@@ -12,7 +12,7 @@ import org.hibernate.annotations.Where;
 
 @Data
 @Entity
-@Table( name = "generos")
+@Table( name = "genders")
 @SQLDelete(sql = "UPDATE Genero SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class GenderEntity implements Serializable{
@@ -21,9 +21,9 @@ public class GenderEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
-    private String nombre;
+    private String name;
     
-    private String imagen;
+    private String image;
     
 //    @OneToMany(mappedBy = "genero", cascade = CascadeType.ALL)
 //    private List<Movie> peliculas;

@@ -37,9 +37,9 @@ public class MovieController {
     @PostMapping()
     public ResponseEntity<MovieDto> save(@Valid @RequestBody MovieDto dto){
         System.out.println("\nentro peliculas/save");
-        System.out.println("dto : " + dto);
-        System.out.println("dto.getGeneroDto() : " + dto.getGenero());
-        System.out.println("dto.getPersonajes() : " + dto.getPersonajes());
+        System.out.println("dto : " + dto.toString());
+        System.out.println("dto.getGeneroDto() : " + dto.getGender().toString());
+        System.out.println("dto.getPersonajes() : " + dto.getCharacters().toString());
         MovieDto movieDto = peliculaService.saveDto(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(movieDto);
     }

@@ -24,13 +24,13 @@ public class MovieMapper {
 
         MovieEntity movie = new MovieEntity();
         
-        movie.setImagen(dto.getImagen());
-        movie.setTitulo(dto.getTitulo());
-        LocalDate date = LocalDate.parse(dto.getFechaCreacion(), formatter);
-        movie.setFechaCreacion(date);
-        movie.setCalificacion(dto.getCalificacion());
-        movie.setGenero(generoMapper.generoDto2Genero(dto.getGenero()));
-        movie.setPersonajes(characterMapper.listCharacterDto2ListCharacter(dto.getPersonajes()));
+        movie.setImage(dto.getImage());
+        movie.setTitle(dto.getTitle());
+        LocalDate date = LocalDate.parse(dto.getCreationDate(), formatter);
+        movie.setCreationDate(date);
+        movie.setCalification(dto.getCalification());
+        movie.setGender(generoMapper.generoDto2Genero(dto.getGender()));
+        movie.setCharacters(characterMapper.listCharacterDto2ListCharacter(dto.getCharacters()));
         return movie;
         
     }
@@ -40,16 +40,16 @@ public class MovieMapper {
         MovieDto dto = new MovieDto();
         
         dto.setId(movie.getId());
-        dto.setImagen(movie.getImagen());
-        dto.setTitulo(movie.getTitulo());
-        String date = movie.getFechaCreacion().format(formatter);
-        dto.setFechaCreacion(date);
-        dto.setCalificacion(movie.getCalificacion());
-        dto.setGenero(generoMapper.genero2GeneroDto(movie.getGenero()));
-        dto.setPersonajes(characterMapper.listCharacter2ListCharacterDto(movie.getPersonajes(), false));
+        dto.setImage(movie.getImage());
+        dto.setTitle(movie.getTitle());
+        String date = movie.getCreationDate().format(formatter);
+        dto.setCreationDate(date);
+        dto.setCalification(movie.getCalification());
+        dto.setGender(generoMapper.genero2GeneroDto(movie.getGender()));
+//        dto.setCharacters(characterMapper.listCharacter2ListCharacterDto(movie.getCharacters(), false));
         if(loadCharacter){
-            List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(movie.getPersonajes(), false);
-            dto.setPersonajes(dtos);
+            List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(movie.getCharacters(), false);
+            dto.setCharacters(dtos);
         }
         return dto;
         
@@ -58,7 +58,7 @@ public class MovieMapper {
     public List<MovieDto> listMovie2ListMovieDto(List<MovieEntity> movies, boolean loadCharacter) {
         List<MovieDto> dtos = new ArrayList<>();
         for (MovieEntity movie : movies) {
-            dtos.add(this.Movie2MovieDto(movie, loadCharacter));
+            dtos.add(this.Movie2MovieDto(movie, true));
         }
         return dtos;
     }

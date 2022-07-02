@@ -21,12 +21,12 @@ public class CharacterMapper {
     public CharacterEntity characterDto2Character(CharacterDto dto){
         CharacterEntity character = new CharacterEntity();
         character.setId(dto.getId());
-        character.setEdad(dto.getEdad());
-        character.setHistoria(dto.getHistoria());
-        character.setImagen(dto.getImagen());
-        character.setNombre(dto.getNombre());
+        character.setAge(dto.getAge());
+        character.setHistory(dto.getHistory());
+        character.setImage(dto.getImage());
+        character.setName(dto.getName());
 //        character.setPeliculaId(dto.getPeliculaId());
-        character.setPeso(dto.getPeso());
+        character.setWeigth(dto.getWeigth());
         
         return character;
     }
@@ -34,15 +34,15 @@ public class CharacterMapper {
     public CharacterDto character2CharacterDto(CharacterEntity character, boolean loadMovie){
         CharacterDto dto = new CharacterDto();
         dto.setId(character.getId());
-        dto.setImagen(character.getImagen());
-        dto.setNombre(character.getNombre());
-        dto.setEdad(character.getEdad());
-        dto.setHistoria(character.getHistoria());
+        dto.setImage(character.getImage());
+        dto.setName(character.getName());
+        dto.setAge(character.getAge());
+        dto.setHistory(character.getHistory());
 //        dto.setPeliculaId(character.getPeliculaId());
-        dto.setPeso(character.getPeso());
+        dto.setWeigth(character.getWeigth());
         if(loadMovie){
-            List<MovieDto> dtos = this.movieMapper.listMovie2ListMovieDto(character.getPeliculas(), false);
-            dto.setPeliculas(dtos);
+            List<MovieDto> dtos = this.movieMapper.listMovie2ListMovieDto(character.getMovies(), false);
+            dto.setMovies(dtos);
         }
         return dto;
     }
@@ -67,11 +67,11 @@ public class CharacterMapper {
 
     public CharacterDto optional2CharacterDto(Optional<CharacterEntity> character, boolean loadMovie) {
         CharacterDto dto = new CharacterDto();
-        dto.setImagen(character.get().getImagen());
-        dto.setNombre(character.get().getNombre());
-        dto.setEdad(character.get().getEdad());
+        dto.setImage(character.get().getImage());
+        dto.setName(character.get().getName());
+        dto.setAge(character.get().getAge());
         if(loadMovie){
-            dto.setPeliculas(movieMapper.listMovie2ListMovieDto(character.get().getPeliculas(), false));
+            dto.setMovies(movieMapper.listMovie2ListMovieDto(character.get().getMovies(), false));
         }
         return dto;
     }

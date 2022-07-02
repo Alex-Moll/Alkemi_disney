@@ -35,32 +35,30 @@ public class MovieEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
-    private String imagen;
+    private String image;
     
-    private String titulo;
+    private String title;
     
     @Column(name = "fecha_creacion")
     @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
-    private LocalDate fechaCreacion;
+    private LocalDate creationDate;
      
     @Range(min=1, max=5)
-    private Integer calificacion;
+    private Integer calification;
     
     // en el ManyToOne el fetch es por defecto EAGER
     @ManyToOne(fetch = FetchType.EAGER) 
-    @JoinColumn(name = "genero_Id", referencedColumnName="id")
+    @JoinColumn(name = "gender_Id", referencedColumnName="id")
     @NotNull
-    private GenderEntity genero;
+    private GenderEntity gender;
     
     // en el ManyToMany el fetch es por defecto LAZY
-    @ManyToMany(cascade = { CascadeType.PERSIST, 
-                            CascadeType.MERGE }, 
-                            fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE , 
+                          fetch = FetchType.LAZY)
     @JoinTable(name = "movie_character", 
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn( name = "character_id"), 
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"movie_id","character_id"})})
-    private List<CharacterEntity> personajes = new ArrayList<>();
+            inverseJoinColumns = @JoinColumn( name = "character_id")) 
+    private List<CharacterEntity> characters = new ArrayList<>();
               
     private boolean deleted = Boolean.FALSE;
 

@@ -9,6 +9,7 @@ public enum ErrorEnum {
     USERORPASSWORDNOTFOUND(" Username or Password not Found"),
     TRYINGTOSENDMAILFAIL("Error trying to send the mail"),
     MALFORMEDJASON("Entered data type error"),
+    BADCREDENTIAL("Bad Credential Error"),
     PARAMNOTFOUND("Param Not Found");
     
     private String message;

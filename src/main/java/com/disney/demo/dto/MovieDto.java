@@ -10,14 +10,14 @@ import org.hibernate.validator.constraints.Range;
 public class MovieDto {
     
     private long id;
-    private String imagen;
+    private String image;
     @NotNull
-    private String titulo;
-    private String fechaCreacion;
-    private GenderDto genero;
+    private String title;
+    private String creationDate;
+    private GenderDto gender;
     @Range(min=1, max=5)
-    private Integer calificacion;
-    private List<CharacterDto> personajes = new ArrayList<>();
+    private Integer calification;
+    private List<CharacterDto> characters = new ArrayList<>();
     private boolean deleted;
     
     

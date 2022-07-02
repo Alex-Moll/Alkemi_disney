@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.disney.demo.service.CharacterService;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
@@ -35,9 +36,16 @@ public class CharacterController {
     } 
     
     @GetMapping("/{id}")
-    public ResponseEntity<CharacterDto> find(@PathVariable("id") long id){
+    public ResponseEntity<CharacterDto> find(@PathVariable("id") Long id){
         System.out.println("\nentro personajes/find");
         CharacterDto dto = characterService.find(id);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+    
+    @PutMapping("/{id}")
+    public ResponseEntity<CharacterDto> update(@PathVariable("id") Long id){
+        System.out.println("\nentro a characters/update");
+        CharacterDto dto = characterService.update(id);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
     
@@ -48,19 +56,19 @@ public class CharacterController {
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
     
-    @GetMapping()
-    public ResponseEntity<List<CharacterDto>> getDetailsByFilters(
-                                @RequestParam (required = false) String name,
-                                @RequestParam (required = false) Integer age,
-                                @RequestParam (required = false) List<Long> movies,
-                                @RequestParam (required = false, defaultValue = "ASC") String order){
-        List<CharacterDto> dtos = characterService.getByFilters(name, age, movies, order);
-        return ResponseEntity.ok(dtos);
-    } 
+//    @GetMapping()
+//    public ResponseEntity<List<CharacterDto>> getDetailsByFilters(
+//                                @RequestParam (required = false) String name,
+//                                @RequestParam (required = false) Integer age,
+//                                @RequestParam (required = false) List<Long> movies,
+//                                @RequestParam (required = false, defaultValue = "ASC") String order){
+//        List<CharacterDto> dtos = characterService.getByFilters(name, age, movies, order);
+//        return ResponseEntity.ok(dtos);
+//    } 
     
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") long id){
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
         System.out.println("\nentro personajes/delete");
         this.characterService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

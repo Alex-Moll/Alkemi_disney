@@ -29,6 +29,7 @@ public class CharacterServiceImpl implements CharacterService{
     
     @Transactional
     public CharacterDto saveDto(CharacterDto dto){
+        System.out.println("\n\n **** entro al pedo aca \n\n");
         CharacterEntity character = characterMapper.characterDto2Character(dto);
         CharacterEntity characterGuardado = characterRepository.save(character);
         dto = characterMapper.character2CharacterDto(characterGuardado, false);
@@ -45,19 +46,25 @@ public class CharacterServiceImpl implements CharacterService{
 
     @Transactional
     @Override
-    public CharacterDto find(long id) {
+    public CharacterDto find(Long id) {
         CharacterDto dto = characterService.find(id);
         return dto;
     }
     
+//    @Transactional
+//    @Override
+//    public CharacterDto update(Long id) {
+//        Optional<CharacterEntity> dto = this.characterRepository.findById(id);
+//    
+//    }
+//    
     @Transactional
     @Override
     public List<CharacterDto> getByFilters(String name, Integer age, List<Long> movies, String order) {
     
         CharacterFiltersDto filterDto = new CharacterFiltersDto(name, age, movies, order);
         List<CharacterEntity> characters = this.characterRepository.findAll(this.characterSpecification.getByFilters(filterDto));
-        List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(characters, true);
-        
+        List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(characters, true);       
         return dtos;
         
     }
@@ -74,13 +81,16 @@ public class CharacterServiceImpl implements CharacterService{
     }
     
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         if(!this.characterRepository.findById(id).isPresent()){
             throw new ParamNotFound("no exist the character for remove");
         }
     }
 
-   
-
-               
+    @Override
+    public CharacterDto update(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
 }

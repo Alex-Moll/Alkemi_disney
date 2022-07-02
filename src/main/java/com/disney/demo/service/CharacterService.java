@@ -7,7 +7,9 @@ public interface CharacterService {
     
     CharacterDto saveDto(CharacterDto dto);
     
-    CharacterDto find(long id);
+    CharacterDto find(Long id);
+    
+    CharacterDto update(Long id);
     
     List<CharacterDto> findAll();
     
@@ -15,6 +17,6 @@ public interface CharacterService {
     
     CharacterDto getDetailsById(Long id);
     
-    void delete(long id);
+    void delete(Long id);
        
 }

@@ -29,7 +29,7 @@ public class JwtUtils {
     }
     
     private Claims extractAllClaims(String token){
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJwt(token).getBody();
+        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
     }
     
     private boolean isTokenExpired(String token){
@@ -48,7 +48,9 @@ public class JwtUtils {
     }
     
     public boolean validateToken(String token, UserDetails userDetails){
+        //aqui extrae el username
         final String username = extractUsername(token);
+        // retorna true si el username == getUsername() y si el token NO expiro
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }

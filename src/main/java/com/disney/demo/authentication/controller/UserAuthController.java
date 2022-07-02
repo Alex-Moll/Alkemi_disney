@@ -31,13 +31,14 @@ public class UserAuthController {
     @Autowired
     private JwtUtils jwtUtils;
     
-    
+    //aqui se haria la registracion
     @PostMapping("/singup")
     public ResponseEntity<AuthenticationResponseDto> singup(@Valid @RequestBody UserDto userDto) throws Exception{
         this.userDetailsCustomService.save(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
+    // aqui seria el inicio de secion y generacion del token
     @PostMapping("/singin")
     public ResponseEntity<AuthenticationResponseDto> singin(@RequestBody AuthenticationRequestDto authRequest) throws Exception{
         
@@ -48,7 +49,7 @@ public class UserAuthController {
                         new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
             userDetails = (UserDetails) auth.getPrincipal();
         }catch (BadCredentialsException bce){
-            throw new Exception(ErrorEnum.USERORPASSWORDNOTFOUND.getMessage() + bce);
+            throw new Exception(ErrorEnum.BADCREDENTIAL.getMessage() + bce);
         }
         
         final String jwt = jwtUtils.generatedToken(userDetails);

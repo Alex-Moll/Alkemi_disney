@@ -22,18 +22,18 @@ public class MovieServiceImpl implements MovieService{
     
     public MovieDto saveDto(MovieDto dto) {
         MovieEntity movie = new MovieEntity();
-        System.out.println("\n* Entrada dto.character " + dto.getPersonajes().toString());
+//        System.out.println("\n* Entrada dto.character " + dto.getCharacters().toString());
         movie = movieMapper.MovieDto2Movie(dto);
-        System.out.println("\n* movie.character : " + movie.getPersonajes().toString() );
+//        System.out.println("\n* movie.character : " + movie.getCharacters().toString() );
         MovieEntity movieGuardar = movieRepository.save(movie);
-        System.out.println("\n* movieGuardar.character : " + movieGuardar.getPersonajes().toString());
+//        System.out.println("\n* movieGuardar.character : " + movieGuardar.getCharacters().toString());
         dto = movieMapper.Movie2MovieDto(movieGuardar, true);
-        System.out.println("\n* Salida dto.character : " +  dto.getPersonajes().toString() );
+//        System.out.println("\n* Salida dto.character : " +  dto.getCharacters().toString() );
         return dto;
     }
 
     @Override
-    public MovieDto find(long id) {
+    public MovieDto find(Long id) {
         Optional<MovieEntity> movieDto = movieRepository.findById(id);
         if(!movieDto.isPresent()){
             throw new ParamNotFound("Movie Not Exist");
@@ -45,12 +45,12 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public List<MovieDto> findAll() {
         List<MovieEntity> movies = movieRepository.findAll();
-        List<MovieDto> dtos = movieMapper.listMovie2ListMovieDto(movies, false);
+        List<MovieDto> dtos = movieMapper.listMovie2ListMovieDto(movies, true);
         return dtos;
     }
 
     @Override
-    public void delete(long id) {
+    public void delete(Long id) {
         this.movieRepository.deleteById(id);
     }
     

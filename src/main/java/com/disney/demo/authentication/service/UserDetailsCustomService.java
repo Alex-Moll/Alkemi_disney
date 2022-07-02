@@ -20,8 +20,8 @@ public class UserDetailsCustomService implements UserDetailsService {
     
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private EmailService emailService;
+//    @Autowired
+//    private EmailService emailService;
     @Autowired
     private PasswordEncoder encoder;
     
@@ -53,9 +53,9 @@ public class UserDetailsCustomService implements UserDetailsService {
         
         userEntity = userRepository.save(userEntity);
         
-        if(userEntity != null){
-            emailService.sendWelcomeEmailTo(userEntity.getUsername());
-        }
+//        if(userEntity != null){
+//            emailService.sendWelcomeEmailTo(userEntity.getUsername());
+//        }
         
         return userEntity != null;
     }

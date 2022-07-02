@@ -18,8 +18,8 @@ public class GenderMapper {
     public GenderEntity generoDto2Genero(GenderDto dto){
         GenderEntity genero = new GenderEntity();
         genero.setId(dto.getId());
-        genero.setNombre(dto.getNombre());
-        genero.setImagen(dto.getImagen());
+        genero.setName(dto.getName());
+        genero.setImage(dto.getImage());
         return genero;
     }
     
@@ -32,8 +32,8 @@ public class GenderMapper {
     public GenderDto genero2GeneroDto(GenderEntity genero){
         GenderDto dto = new GenderDto();
         dto.setId(genero.getId());
-        dto.setNombre(genero.getNombre());
-        dto.setImagen(genero.getImagen());
+        dto.setName(genero.getName());
+        dto.setImage(genero.getImage());
         return dto;
     }
         

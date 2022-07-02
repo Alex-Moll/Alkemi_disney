@@ -24,7 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsCustomService);
+        auth.userDetailsService(userDetailsCustomService).
+                passwordEncoder(this.passwordEncoder());
     }
     
     @Bean
@@ -41,12 +42,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
-                .authorizeRequests().antMatchers("/auth/*", "/genders/*", "/characters/*","/movies/*").permitAll()
+                // aqui le decimos a que endpoint le vamos a dar seguridad
+                .authorizeRequests().antMatchers("/auth/*").permitAll()
                 .anyRequest().authenticated()
                 .and().exceptionHandling()
                 .and().sessionManagement()
+                // STATELESS indica que por cada endpoint debeb haber un control de acceso 
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        
+        /**
+         * jwtRequestFilter este filtro se encarga de ver si tienen datos correctos 
+         * para dejarlos pasar
+        */ 
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         
     } 

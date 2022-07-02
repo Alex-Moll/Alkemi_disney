@@ -25,20 +25,21 @@ public class CharacterEntity implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     
-    private String imagen;
+    private String image;
     
-    private String nombre;
+    private String name;
     
 //    @Column(name = "fecha_nacimeinto")
 //    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
-    private int edad;
+    private int age;
     
-    private double peso;
+    private double weigth;
     
-    private String historia;
+    private String history;
     
-    @ManyToMany(mappedBy = "personajes", cascade = CascadeType.PERSIST)
-    private List<MovieEntity> peliculas = new ArrayList<>();
+    @ManyToMany(mappedBy = "characters", 
+                cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<MovieEntity> movies = new ArrayList<>();
     
 //    @Column(name = "pelicula_id")
 //    private String peliculaId;

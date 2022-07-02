@@ -9,14 +9,13 @@ import lombok.Data;
 public class CharacterDto {
     
     private long id;
-    private String imagen;
-    @NotNull
-    private String nombre;
-    private int edad;
-    private double peso;
-    private String historia;
-    private List<MovieDto> peliculas = new ArrayList<>();
-//    private String peliculaId;
+    private String image;
+//    @NotNull
+    private String name;
+    private int age;
+    private double weigth;
+    private String history;
+    private List<MovieDto> movies = new ArrayList<>();
     private boolean deleted;
     
     public CharacterDto(){
