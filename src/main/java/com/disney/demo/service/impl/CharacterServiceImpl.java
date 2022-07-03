@@ -40,24 +40,30 @@ public class CharacterServiceImpl implements CharacterService{
     @Override
     public List<CharacterDto> findAll() {
         List<CharacterEntity> characters = characterRepository.findAll();
-        List<CharacterDto> dtos = characterMapper.listCharacter2ListCharacterDto(characters, false);
+        List<CharacterDto> dtos = characterMapper.listCharacter2ListCharacterDto(characters, true);
         return dtos;
     }
 
     @Transactional
     @Override
     public CharacterDto find(Long id) {
-        CharacterDto dto = characterService.find(id);
+        Optional<CharacterEntity> character = characterRepository.findById(id);
+        if(!character.isPresent()){
+            throw new ParamNotFound("Character Not Exist");
+        }
+        CharacterDto dtoGet = characterMapper.character2CharacterDto(character.get(), true);
+        return dtoGet;
+    }
+    
+    @Transactional
+    @Override
+    public CharacterDto update(CharacterDto dto) {
+        CharacterEntity character = characterMapper.characterDto2Character(dto);
+        this.characterRepository.save(character);
+        dto = characterMapper.character2CharacterDto(character, false);
         return dto;
     }
     
-//    @Transactional
-//    @Override
-//    public CharacterDto update(Long id) {
-//        Optional<CharacterEntity> dto = this.characterRepository.findById(id);
-//    
-//    }
-//    
     @Transactional
     @Override
     public List<CharacterDto> getByFilters(String name, Integer age, List<Long> movies, String order) {
@@ -80,17 +86,18 @@ public class CharacterServiceImpl implements CharacterService{
         return dto;
     }
     
+    @Transactional
     @Override
     public void delete(Long id) {
-        if(!this.characterRepository.findById(id).isPresent()){
+        Optional<CharacterEntity> character = this.characterRepository.findById(id);
+        
+        if(!character.isPresent()){
             throw new ParamNotFound("no exist the character for remove");
         }
+        
+        this.characterRepository.delete(character.get());
     }
 
-    @Override
-    public CharacterDto update(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     
 }

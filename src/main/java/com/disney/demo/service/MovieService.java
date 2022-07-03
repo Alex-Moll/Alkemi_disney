@@ -1,5 +1,6 @@
 package com.disney.demo.service;
 
+import com.disney.demo.dto.MovieBasicDto;
 import com.disney.demo.dto.MovieDto;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public interface MovieService {
     
     MovieDto find(Long id);
     
-    List<MovieDto> findAll();
+    List<MovieBasicDto> findAll();
     
     void delete(Long id);
     

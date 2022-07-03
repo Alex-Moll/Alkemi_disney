@@ -17,7 +17,7 @@ import org.hibernate.annotations.Where;
 @Data
 @Entity
 @Table( name = "characters")
-@SQLDelete(sql = "UPDATE Personaje SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE Characters SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class CharacterEntity implements Serializable{
     
@@ -29,8 +29,6 @@ public class CharacterEntity implements Serializable{
     
     private String name;
     
-//    @Column(name = "fecha_nacimeinto")
-//    @DateTimeFormat(pattern = "yyyy/MM/dd") // formato y patron de la fecha
     private int age;
     
     private double weigth;

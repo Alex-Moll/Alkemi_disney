@@ -9,7 +9,7 @@ public interface CharacterService {
     
     CharacterDto find(Long id);
     
-    CharacterDto update(Long id);
+    CharacterDto update(CharacterDto dto);
     
     List<CharacterDto> findAll();
     

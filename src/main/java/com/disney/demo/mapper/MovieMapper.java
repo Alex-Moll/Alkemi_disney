@@ -1,7 +1,9 @@
 package com.disney.demo.mapper;
 
+import com.disney.demo.dto.CharacterBasicDto;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.dto.CharacterDto;
+import com.disney.demo.dto.MovieBasicDto;
 import com.disney.demo.entity.MovieEntity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -46,9 +48,27 @@ public class MovieMapper {
         dto.setCreationDate(date);
         dto.setCalification(movie.getCalification());
         dto.setGender(generoMapper.genero2GeneroDto(movie.getGender()));
-//        dto.setCharacters(characterMapper.listCharacter2ListCharacterDto(movie.getCharacters(), false));
         if(loadCharacter){
             List<CharacterDto> dtos = this.characterMapper.listCharacter2ListCharacterDto(movie.getCharacters(), false);
+            dto.setCharacters(dtos);
+        }
+        return dto;
+        
+    }
+    
+    
+    public MovieBasicDto Movie2MovieBasicDto(MovieEntity movie,  boolean loadCharacter) {
+
+        MovieBasicDto dto = new MovieBasicDto();
+        
+        dto.setId(movie.getId());
+        dto.setTitle(movie.getTitle());
+        String date = movie.getCreationDate().format(formatter);
+        dto.setCreationDate(date);
+        dto.setCalification(movie.getCalification());
+        dto.setGender(generoMapper.genero2GeneroDto(movie.getGender()));
+        if(loadCharacter){
+            List<CharacterBasicDto> dtos = this.characterMapper.listCharacter2ListCharacterBasicDto(movie.getCharacters(), false);
             dto.setCharacters(dtos);
         }
         return dto;
@@ -58,7 +78,19 @@ public class MovieMapper {
     public List<MovieDto> listMovie2ListMovieDto(List<MovieEntity> movies, boolean loadCharacter) {
         List<MovieDto> dtos = new ArrayList<>();
         for (MovieEntity movie : movies) {
-            dtos.add(this.Movie2MovieDto(movie, true));
+            dtos.add(this.Movie2MovieDto(movie, loadCharacter));
+        }
+        return dtos;
+    }
+    
+    /**
+     * este metodo retorna una lista - Movies Basic Dto - 
+     *                       con sus - Character Basic Dto -
+     */
+    public List<MovieBasicDto> listMovie2ListMovieBasicDto(List<MovieEntity> movies, boolean loadCharacter) {
+        List<MovieBasicDto> dtos = new ArrayList<>();
+        for (MovieEntity movie : movies) {
+            dtos.add(this.Movie2MovieBasicDto(movie, loadCharacter));
         }
         return dtos;
     }

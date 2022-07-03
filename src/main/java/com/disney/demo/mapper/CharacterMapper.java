@@ -1,5 +1,6 @@
 package com.disney.demo.mapper;
 
+import com.disney.demo.dto.CharacterBasicDto;
 import com.disney.demo.dto.CharacterDto;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.entity.CharacterEntity;
@@ -47,10 +48,44 @@ public class CharacterMapper {
         return dto;
     }
     
+    /**
+     * este metodo retorna un - Character Basic Dto -
+     * @param character
+     * @param loadMovie
+     * @return 
+     */
+    public CharacterBasicDto character2CharacterBasicDto(CharacterEntity character, boolean loadMovie){
+        CharacterBasicDto dto = new CharacterBasicDto();
+        dto.setId(character.getId());
+        dto.setImage(character.getImage());
+        dto.setName(character.getName());
+
+        if(loadMovie){
+            List<MovieDto> dtos = this.movieMapper.listMovie2ListMovieDto(character.getMovies(), loadMovie);
+//            dto.setMovies(dtos);
+        }
+        
+        return dto;
+    }
+    
     public List<CharacterDto> listCharacter2ListCharacterDto(List<CharacterEntity> characters, boolean loadMovies){
         List<CharacterDto> dtos = new ArrayList<>();
         for (CharacterEntity character : characters) {
-            dtos.add(this.character2CharacterDto(character, false));
+            dtos.add(this.character2CharacterDto(character, loadMovies));
+        }
+        return dtos;
+    }
+    
+    /**
+     * este metodo retorna una lista de - Character Basic Dto -
+     * @param characters
+     * @param loadMovies
+     * @return 
+     */
+    public List<CharacterBasicDto> listCharacter2ListCharacterBasicDto(List<CharacterEntity> characters, boolean loadMovies){
+        List<CharacterBasicDto> dtos = new ArrayList<>();
+        for (CharacterEntity character : characters) {
+            dtos.add(this.character2CharacterBasicDto(character, loadMovies));
         }
         return dtos;
     }
@@ -63,8 +98,6 @@ public class CharacterMapper {
         return characters;
     }
     
-    
-
     public CharacterDto optional2CharacterDto(Optional<CharacterEntity> character, boolean loadMovie) {
         CharacterDto dto = new CharacterDto();
         dto.setImage(character.get().getImage());

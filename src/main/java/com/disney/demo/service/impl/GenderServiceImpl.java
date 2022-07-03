@@ -34,6 +34,7 @@ public class GenderServiceImpl implements GenderService {
     public GenderDto find(long id) {
 //        GenderEntity genero = generoRepository.findById(id).orElse(null);
         Optional<GenderEntity> genero = generoRepository.findById(id);
+        
         if(!genero.isPresent()){
             throw new ParamNotFound("Gender Not Exist");
         }

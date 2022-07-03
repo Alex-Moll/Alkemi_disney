@@ -34,11 +34,10 @@ public class GenderController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dtoGuardado);      
     }
     
-    @GetMapping("/{id}")
-    public ResponseEntity<GenderDto> find(@Valid @PathVariable long id){
+    @GetMapping("/find/{id}")
+    public ResponseEntity<GenderDto> find(@Valid @PathVariable Long id){
         System.out.println("\nentro a generos/find/id");
         GenderDto dto = generoService.find(id);
-        
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
     

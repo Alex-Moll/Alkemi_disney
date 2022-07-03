@@ -1,5 +1,6 @@
 package com.disney.demo.service.impl;
 
+import com.disney.demo.dto.MovieBasicDto;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.entity.MovieEntity;
 import com.disney.demo.exception.ParamNotFound;
@@ -43,9 +44,9 @@ public class MovieServiceImpl implements MovieService{
     }
 
     @Override
-    public List<MovieDto> findAll() {
+    public List<MovieBasicDto> findAll() {
         List<MovieEntity> movies = movieRepository.findAll();
-        List<MovieDto> dtos = movieMapper.listMovie2ListMovieDto(movies, true);
+        List<MovieBasicDto> dtos = movieMapper.listMovie2ListMovieBasicDto(movies, true);
         return dtos;
     }
 

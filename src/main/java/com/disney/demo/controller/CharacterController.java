@@ -35,17 +35,10 @@ public class CharacterController {
         return ResponseEntity.status(HttpStatus.CREATED).body(characterDto);      
     } 
     
-    @GetMapping("/{id}")
-    public ResponseEntity<CharacterDto> find(@PathVariable("id") Long id){
-        System.out.println("\nentro personajes/find");
-        CharacterDto dto = characterService.find(id);
-        return ResponseEntity.status(HttpStatus.OK).body(dto);
-    }
-    
-    @PutMapping("/{id}")
-    public ResponseEntity<CharacterDto> update(@PathVariable("id") Long id){
+    @PutMapping()
+    public ResponseEntity<CharacterDto> update(@Valid @RequestBody CharacterDto dto){
         System.out.println("\nentro a characters/update");
-        CharacterDto dto = characterService.update(id);
+        this.characterService.update(dto);
         return ResponseEntity.status(HttpStatus.OK).body(dto);
     }
     
@@ -56,21 +49,31 @@ public class CharacterController {
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
     
-//    @GetMapping()
-//    public ResponseEntity<List<CharacterDto>> getDetailsByFilters(
-//                                @RequestParam (required = false) String name,
-//                                @RequestParam (required = false) Integer age,
-//                                @RequestParam (required = false) List<Long> movies,
-//                                @RequestParam (required = false, defaultValue = "ASC") String order){
-//        List<CharacterDto> dtos = characterService.getByFilters(name, age, movies, order);
-//        return ResponseEntity.ok(dtos);
-//    } 
-    
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+    @GetMapping("/find/{id}")
+    public ResponseEntity<CharacterDto> find(@PathVariable Long id){
+        System.out.println("\nentro personajes/find");
+        CharacterDto dto = characterService.find(id);
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+           
+    @DeleteMapping ("/{id}")
+    public ResponseEntity <CharacterDto> delete (@PathVariable Long id){ 
         System.out.println("\nentro personajes/delete");
-        this.characterService.delete(id);
+        this.characterService.delete(id);        
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+    
+    @GetMapping
+    public ResponseEntity<List<CharacterDto>> getDetailsByFilters ( @Valid
+            @RequestParam (required = false) String name,
+            @RequestParam (required = false) Integer age,
+            @RequestParam (required = false) List<Long> movies,
+            @RequestParam (required = false, defaultValue = "ASC") String order){
+        
+        List<CharacterDto> dtos = characterService.getByFilters(name, age, movies, order);
+        
+        return ResponseEntity.ok().body(dtos);
+    } 
+    
+    
 }

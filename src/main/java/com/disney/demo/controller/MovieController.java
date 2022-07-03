@@ -1,5 +1,6 @@
 package com.disney.demo.controller;
 
+import com.disney.demo.dto.MovieBasicDto;
 import com.disney.demo.dto.MovieDto;
 import com.disney.demo.mapper.MovieMapper;
 import com.disney.demo.mapper.CharacterMapper;
@@ -52,14 +53,14 @@ public class MovieController {
     }
     
     @GetMapping()
-    public ResponseEntity<List <MovieDto>> findAll(){
+    public ResponseEntity<List <MovieBasicDto>> findAll(){
         System.out.println("\nentro peliculas/findAll");
-        List<MovieDto> dtos = peliculaService.findAll();
+        List<MovieBasicDto> dtos = peliculaService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
     
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         System.out.println("\nentro peliculas/dalete");
         this.peliculaService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

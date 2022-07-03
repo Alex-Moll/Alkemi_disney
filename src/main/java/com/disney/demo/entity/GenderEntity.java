@@ -13,7 +13,7 @@ import org.hibernate.annotations.Where;
 @Data
 @Entity
 @Table( name = "genders")
-@SQLDelete(sql = "UPDATE Genero SET deleted = true WHERE id = ?")
+@SQLDelete(sql = "UPDATE genders SET deleted = true WHERE id = ?")
 @Where(clause = "deleted = false")
 public class GenderEntity implements Serializable{
     

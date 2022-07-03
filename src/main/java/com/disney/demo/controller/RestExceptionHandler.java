@@ -27,19 +27,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
                         HttpStatus.BAD_REQUEST,
                         ex.getMessage(),
                         Arrays.asList("Param Not Found"));
+        //en el return , envio la exception, el body(errorDto)
         return handleExceptionInternal(ex, errorDto, new HttpHeaders(), HttpStatus.BAD_REQUEST, request );
     }
     
     /**
      * esto es para capturar cuando los @Valid dan errores
      */
-//    @Override
     protected ResponseEntity<Object> HandleMethodArgumentNotValid(
-                                                MethodArgumentNotValidException ex, 
-                                                HttpHeaders headers, 
-                                                HttpStatus status, 
-                                                WebRequest request){
+                                        MethodArgumentNotValidException ex, 
+                                        HttpHeaders headers, 
+                                        HttpStatus status, 
+                                        WebRequest request){
+        
         List<String> errors = new ArrayList<>();
+        
         for (FieldError error : ex.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ":" + error.getDefaultMessage());            
         }
@@ -51,11 +53,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         
     }
     
-    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
-    public ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request){
-        String bodyOfResponse = "this should be aplication specific";
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
-    }
+//    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
+//    public ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request){
+//        String bodyOfResponse = "this should be aplication specific";
+//        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+//    }
     
     @ExceptionHandler(value = {UserAlreadyExistAuthenticationException.class})
     public ResponseEntity<Object> handleUserAlreadyExist(RuntimeException ex, WebRequest request){
