@@ -14,4 +14,6 @@ public interface MovieService {
     
     void delete(Long id);
     
+    List<MovieBasicDto> getByFilters(String title, Long idGender, String order);
+    
 }

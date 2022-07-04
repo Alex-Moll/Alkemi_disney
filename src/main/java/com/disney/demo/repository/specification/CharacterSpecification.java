@@ -27,13 +27,14 @@ public class CharacterSpecification {
             // en predicates vamos agregando los campos del filtro
             if (StringUtils.hasLength(filtersDto.getName())) {
                 predicates.add(criteriaBuilder.like(
-                        criteriaBuilder.lower(root.get("denominacion")),
+                        criteriaBuilder.lower(root.get("name")), // ("..") nombre del atributo
                         "%" + filtersDto.getName().toLowerCase() + "%"));
             }
             
+             // if para filtro de tipo Integer
             if (filtersDto.getAge() != null) {
                 predicates.add(criteriaBuilder.equal(
-                        root.get("age"), filtersDto.getAge()));
+                        root.get("age"), filtersDto.getAge())); // ("..") nombre del atributo
             }
             
             // if para filtro de tipo double
@@ -50,9 +51,9 @@ public class CharacterSpecification {
 //
 //            }
 
-            // if para list - collections
-            if (!CollectionUtils.isEmpty(filtersDto.getMovies())) {
-                Join<CharacterEntity, MovieEntity> join = root.join("characters", JoinType.INNER);
+            // if para filtro list - collections
+            if (!CollectionUtils.isEmpty(filtersDto.getMovies())) { // pregunta si la lista no es vacia
+                Join<MovieEntity,CharacterEntity> join = root.join("movies", JoinType.INNER); //nombre del atributo List de la Entidad character
                 Expression<String> moviesId = join.get("id");
                 predicates.add(moviesId.in(filtersDto.getMovies()));
             }
@@ -61,7 +62,7 @@ public class CharacterSpecification {
             query.distinct(true);
 
             //order resolver
-            String orderByField = "denominacion";
+            String orderByField = "name";
             query.orderBy(filtersDto.isASC() ?
                             criteriaBuilder.asc(root.get(orderByField)) :
                             criteriaBuilder.desc(root.get(orderByField)) );

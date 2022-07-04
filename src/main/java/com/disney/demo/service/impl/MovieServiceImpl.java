@@ -2,6 +2,8 @@ package com.disney.demo.service.impl;
 
 import com.disney.demo.dto.MovieBasicDto;
 import com.disney.demo.dto.MovieDto;
+import com.disney.demo.dto.MovieFilterDto;
+import com.disney.demo.entity.GenderEntity;
 import com.disney.demo.entity.MovieEntity;
 import com.disney.demo.exception.ParamNotFound;
 import com.disney.demo.mapper.MovieMapper;
@@ -9,6 +11,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.disney.demo.repository.MovieRepository;
+import com.disney.demo.repository.specification.MovieSpecification;
 import com.disney.demo.service.MovieService;
 import java.util.Optional;
 
@@ -20,6 +23,8 @@ public class MovieServiceImpl implements MovieService{
     private MovieRepository movieRepository;
     @Autowired
     private MovieMapper movieMapper;
+    @Autowired
+    private MovieSpecification movieSpecification;
     
     public MovieDto saveDto(MovieDto dto) {
         MovieEntity movie = new MovieEntity();
@@ -53,6 +58,16 @@ public class MovieServiceImpl implements MovieService{
     @Override
     public void delete(Long id) {
         this.movieRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MovieBasicDto> getByFilters(String title, Long idGender, String order) {
+
+        MovieFilterDto filterDto = new MovieFilterDto(title, idGender, order);
+        List<MovieEntity> movie = movieRepository.findAll(this.movieSpecification.getByFilters(filterDto));
+        List<MovieBasicDto> dtos = this.movieMapper.listMovie2ListMovieBasicDto(movie, true);
+        return dtos;
+        
     }
     
     
